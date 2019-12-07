@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/andriannus/cinemanz-graphql/compare/v0.0.3...v0.0.4) (2019-12-07)
+
+
+### Features
+
+* create query to paginate movies or theaters and get one movie or theater ([4427cc1](https://github.com/andriannus/cinemanz-graphql/commit/4427cc1579d5d6c87a5f849c5c749666f3ca566a))
+
 ### [0.0.3](https://github.com/andriannus/cinemanz-graphql/compare/v0.0.2...v0.0.3) (2019-12-07)
 
 
