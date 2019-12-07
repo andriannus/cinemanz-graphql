@@ -5,7 +5,7 @@ const movieType = gql`
     _id: ID
     title: String
     genre: [String]
-    minutes: String
+    minutes: Int
     synopsis: String
     producer: [String]
     production: String
@@ -17,6 +17,11 @@ const movieType = gql`
     rate: Float
     theater: [String]
     poster: String
+  }
+
+  type ResponseMovie {
+    results: [Movie]
+    total: Int
   }
 `;
 

@@ -7,6 +7,11 @@ const theaterType = gql`
     name: String
     telephone: String
   }
+
+  type ResponseTheater {
+    results: [Theater]
+    total: Int
+  }
 `;
 
 module.exports = { theaterType };
