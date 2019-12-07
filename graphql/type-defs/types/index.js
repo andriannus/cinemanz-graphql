@@ -1,3 +1,4 @@
+const { movieType } = require('./movie.type');
 const { theaterType } = require('./theater.type');
 
-module.exports = { theaterType };
+module.exports = { movieType, theaterType };
