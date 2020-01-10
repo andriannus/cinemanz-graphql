@@ -7,6 +7,11 @@ const query = gql`
     theater(id: ID!): Theater
     theaters(skip: Int!, limit: Int!): ResponseTheater
   }
+
+  type Mutation {
+    createTheater(dataTheater: DataTheater): CreatedTheater
+    deleteTheater(id: ID!): DeletedTheater
+  }
 `;
 
 module.exports = { query };

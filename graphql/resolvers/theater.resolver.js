@@ -19,6 +19,27 @@ const theaterResolver = {
         total
       };
     }
+  },
+
+  Mutation: {
+    createTheater: async (_, { dataTheater }) => {
+      const theater = new Theater(dataTheater);
+      const createdTheater = theater.save();
+
+      return {
+        result: createdTheater
+      };
+    },
+
+    deleteTheater: async (_, { id }) => {
+      const deletedTheater = await Theater.findByIdAndDelete(id);
+
+      if (!deletedTheater) return false;
+
+      return {
+        message: 'Theater has been deleted'
+      };
+    }
   }
 };
 
