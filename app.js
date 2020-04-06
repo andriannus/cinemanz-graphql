@@ -11,11 +11,15 @@ const { resolvers } = require('./graphql/resolvers');
 const app = express();
 const server = new ApolloServer({ typeDefs, resolvers });
 
-mongoose.connect(DATABASE.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true }, err => {
-  const message = err || 'Connected';
-  // eslint-disable-next-line no-console
-  console.log(`MongoDB: ${message}`);
-});
+mongoose.connect(
+  DATABASE.mongoUri,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  err => {
+    const message = err || 'Connected';
+    // eslint-disable-next-line no-console
+    console.log(`MongoDB: ${message}`);
+  }
+);
 
 app.use(cors());
 app.use(bodyParser.json());
