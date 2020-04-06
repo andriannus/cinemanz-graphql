@@ -1,7 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const theaterType = gql`
-  input DataTheater {
+  input CreateTheaterInput {
     address: String
     name: String
     telephone: String
@@ -14,16 +14,16 @@ const theaterType = gql`
     telephone: String
   }
 
-  type ResponseTheater {
+  type TheaterResponse {
     results: [Theater]
     total: Int
   }
 
-  type CreatedTheater {
+  type CreatedTheaterResponse {
     result: Theater
   }
 
-  type DeletedTheater {
+  type DeletedTheaterResponse {
     message: String
   }
 `;

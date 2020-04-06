@@ -3,32 +3,27 @@ const { Theater } = require('../../models');
 const theaterResolver = {
   Query: {
     theater: async (_, { id }) => {
-      const dataTheater = await Theater.findById(id);
+      const result = await Theater.findById(id);
 
-      return dataTheater;
+      return result;
     },
 
     theaters: async (_, { skip, limit }) => {
-      const dataTheaters = await Theater.find({})
+      const results = await Theater.find({})
         .skip(skip)
         .limit(limit);
       const total = await Theater.find({}).countDocuments();
 
-      return {
-        results: dataTheaters,
-        total
-      };
+      return { results, total };
     }
   },
 
   Mutation: {
-    createTheater: async (_, { dataTheater }) => {
-      const theater = new Theater(dataTheater);
-      const createdTheater = theater.save();
+    createTheater: async (_, { data }) => {
+      const theater = new Theater(data);
+      const result = theater.save();
 
-      return {
-        result: createdTheater
-      };
+      return { result };
     },
 
     deleteTheater: async (_, { id }) => {
