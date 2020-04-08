@@ -9,7 +9,9 @@ const query = gql`
   }
 
   type Mutation {
-    createTheater(theater: CreateTheaterInput): CreatedTheaterResponse
+    createMovie(data: CreateMovieInput): CreatedMovieResponse
+    deleteMovie(id: ID!): DeletedMovieResponse
+    createTheater(data: CreateTheaterInput): CreatedTheaterResponse
     deleteTheater(id: ID!): DeletedTheaterResponse
   }
 `;

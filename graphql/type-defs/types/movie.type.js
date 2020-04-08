@@ -40,6 +40,14 @@ const movieType = gql`
     results: [Movie]
     total: Int
   }
+
+  type CreatedMovieResponse {
+    result: Movie
+  }
+
+  type DeletedMovieResponse {
+    message: String
+  }
 `;
 
 module.exports = { movieType };

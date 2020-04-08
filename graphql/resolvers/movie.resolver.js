@@ -16,6 +16,25 @@ const movieResolver = {
 
       return { results, total };
     }
+  },
+
+  Mutation: {
+    createMovie: (_, { data }) => {
+      const movie = new Movie(data);
+      const result = movie.save();
+
+      return { result };
+    },
+
+    deleteMovie: async (_, { id }) => {
+      const deletedMovie = await Movie.findByIdAndDelete(id);
+
+      if (!deletedMovie) return false;
+
+      return {
+        message: 'Movie has been deleted'
+      };
+    }
   }
 };
 
