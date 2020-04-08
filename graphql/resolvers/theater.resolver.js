@@ -19,7 +19,7 @@ const theaterResolver = {
   },
 
   Mutation: {
-    createTheater: async (_, { data }) => {
+    createTheater: (_, { data }) => {
       const theater = new Theater(data);
       const result = theater.save();
 
