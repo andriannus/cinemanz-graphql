@@ -13,6 +13,7 @@ const query = gql`
     deleteMovie(id: ID!): DeletedMovieResponse
     createTheater(data: CreateTheaterInput): CreatedTheaterResponse
     deleteTheater(id: ID!): DeletedTheaterResponse
+    registerUser(data: RegisterUserInput): RegisterUserResponse
   }
 `;
 
