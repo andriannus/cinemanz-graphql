@@ -23,6 +23,11 @@ const userType = gql`
   type RegisterUserResponse {
     result: User
   }
+
+  type LoginUserResponse {
+    message: String
+    token: String
+  }
 `;
 
 module.exports = { userType };
