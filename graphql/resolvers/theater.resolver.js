@@ -1,39 +1,121 @@
 const { Theater } = require('../../models');
+const { getIsoDate } = require('../../utils/date.util');
 
 const theaterResolver = {
   Query: {
     theater: async (_, { id }) => {
-      const result = await Theater.findById(id);
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return result;
+      try {
+        const result = await Theater.findById(id);
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     },
 
     theaters: async (_, { skip, limit }) => {
-      const results = await Theater.find({})
-        .skip(skip)
-        .limit(limit);
-      const total = await Theater.find({}).countDocuments();
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return { results, total };
+      try {
+        const results = await Theater.find({})
+          .skip(skip)
+          .limit(limit);
+        const total = await Theater.find({}).countDocuments();
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          results,
+          status: 'success',
+          total
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     }
   },
 
   Mutation: {
-    createTheater: (_, { data }) => {
-      const theater = new Theater(data);
-      const result = theater.save();
+    createTheater: async (_, { data }) => {
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return { result };
+      try {
+        const theater = new Theater(data);
+        const result = await theater.save();
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     },
 
     deleteTheater: async (_, { id }) => {
-      const deletedTheater = await Theater.findByIdAndDelete(id);
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      if (!deletedTheater) return false;
+      try {
+        const result = await Theater.findByIdAndDelete(id);
 
-      return {
-        message: 'Theater has been deleted'
-      };
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     }
   }
 };

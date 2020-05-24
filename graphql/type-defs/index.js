@@ -1,6 +1,6 @@
 const { query } = require('./query');
-const { movieType, theaterType, userType } = require('./types');
+const { movieType, responseType, theaterType, userType } = require('./types');
 
-const typeDefs = [query, movieType, theaterType, userType];
+const typeDefs = [query, movieType, responseType, theaterType, userType];
 
 module.exports = { typeDefs };

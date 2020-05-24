@@ -14,17 +14,37 @@ const theaterType = gql`
     telephone: String
   }
 
-  type TheaterResponse {
+  type TheaterResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: Theater
+    status: String
+  }
+
+  type TheatersResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
     results: [Theater]
+    status: String
     total: Int
   }
 
-  type CreatedTheaterResponse {
+  type CreatedTheaterResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
     result: Theater
+    status: String
   }
 
-  type DeletedTheaterResponse {
+  type DeletedTheaterResponse implements Response {
+    access_time_in: String
+    access_time_out: String
     message: String
+    result: Theater
+    status: String
   }
 `;
 
