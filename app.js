@@ -1,4 +1,4 @@
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer, makeExecutableSchema } = require('apollo-server-express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
@@ -9,7 +9,13 @@ const { typeDefs } = require('./graphql/type-defs');
 const { resolvers } = require('./graphql/resolvers');
 
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers });
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+  resolverValidationOptions: { requireResolversForResolveType: false }
+});
+const server = new ApolloServer({ schema });
 
 mongoose.connect(
   DATABASE.mongoUri,
