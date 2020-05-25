@@ -18,6 +18,11 @@ const movieType = gql`
     writer: String
   }
 
+  enum ShowingMovie {
+    NOW_PLAYING
+    UPCOMING
+  }
+
   type Movie {
     _id: ID
     cast: [String]

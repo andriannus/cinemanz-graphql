@@ -1,6 +1,6 @@
 const SHOWING = {
-  nowPlaying: 'nowPlaying',
-  upcoming: 'upcoming'
+  nowPlaying: 'NOW_PLAYING',
+  upcoming: 'UPCOMING'
 };
 
 module.exports = { SHOWING };

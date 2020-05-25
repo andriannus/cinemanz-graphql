@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const query = gql`
   type Query {
     movie(id: ID!): MovieResponse
-    movies(skip: Int!, limit: Int!, showing: String): MoviesResponse
+    movies(skip: Int!, limit: Int!, showing: ShowingMovie): MoviesResponse
     theater(id: ID!): TheaterResponse
     theaters(skip: Int!, limit: Int!): TheatersResponse
   }
