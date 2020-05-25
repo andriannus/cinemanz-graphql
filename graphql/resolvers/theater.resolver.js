@@ -1,3 +1,4 @@
+const { STATUS } = require('../../constants/status.const');
 const { Theater } = require('../../models');
 const { getIsoDate } = require('../../utils/date.util');
 
@@ -16,7 +17,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         accessTimeOut = getIsoDate();
@@ -25,7 +26,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     },
@@ -46,7 +47,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           results,
-          status: 'success',
+          status: STATUS.success,
           total
         };
       } catch (error) {
@@ -56,7 +57,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     }
@@ -77,7 +78,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         accessTimeOut = getIsoDate();
@@ -86,7 +87,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     },
@@ -104,7 +105,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         accessTimeOut = getIsoDate();
@@ -113,7 +114,7 @@ const theaterResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     }

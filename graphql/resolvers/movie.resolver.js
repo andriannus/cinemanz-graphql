@@ -1,3 +1,4 @@
+const { STATUS } = require('../../constants/status.const');
 const { Movie } = require('../../models');
 const { getIsoDate } = require('../../utils/date.util');
 
@@ -16,7 +17,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         accessTimeOut = getIsoDate();
@@ -25,7 +26,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     },
@@ -46,7 +47,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           results,
-          status: 'success',
+          status: STATUS.success,
           total
         };
       } catch (error) {
@@ -56,7 +57,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     }
@@ -77,14 +78,14 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         return {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     },
@@ -102,7 +103,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           result,
-          status: 'success'
+          status: STATUS.success
         };
       } catch (error) {
         accessTimeOut = getIsoDate();
@@ -111,7 +112,7 @@ const movieResolver = {
           access_time_in: accessTimeIn,
           access_time_out: accessTimeOut,
           message: error,
-          status: 'error'
+          status: STATUS.error
         };
       }
     }
