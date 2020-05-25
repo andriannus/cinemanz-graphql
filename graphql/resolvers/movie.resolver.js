@@ -1,4 +1,4 @@
-const { STATUS } = require('../../constants/status.const');
+const { STATUS } = require('../../constants/config.const');
 const { Movie } = require('../../models');
 const { getIsoDate } = require('../../utils/date.util');
 
