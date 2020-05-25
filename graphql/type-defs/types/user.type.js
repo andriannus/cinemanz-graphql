@@ -20,13 +20,24 @@ const userType = gql`
     username: String
   }
 
-  type RegisterUserResponse {
-    result: User
+  type UserToken {
+    token: String
   }
 
-  type LoginUserResponse {
+  type RegisterUserResponse implements Response {
+    access_time_in: String
+    access_time_out: String
     message: String
-    token: String
+    result: User
+    status: String
+  }
+
+  type LoginUserResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: UserToken
+    status: String
   }
 `;
 

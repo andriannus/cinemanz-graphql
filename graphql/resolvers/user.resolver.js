@@ -1,52 +1,100 @@
 const jwt = require('jsonwebtoken');
 
+const { JWT, STATUS } = require('../../constants/config.const');
 const { User } = require('../../models');
-const { JWT } = require('../../constants/config.const');
+const { getIsoDate } = require('../../utils/date.util');
 
 const userResolver = {
   Mutation: {
     loginUser: async (_, { email, password }) => {
-      const user = await User.findOne({ email }).exec();
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      if (!user) {
-        return {
-          message: 'User not found'
-        };
-      }
+      try {
+        const user = await User.findOne({ email }).exec();
 
-      const result = await new Promise(resolve => {
-        user.comparePassword(password, (fault, isMatch) => {
-          if (fault) {
-            return resolve({
-              message: fault
+        if (!user) {
+          accessTimeOut = getIsoDate();
+
+          return {
+            access_time_in: accessTimeIn,
+            access_time_out: accessTimeOut,
+            message: 'User not found',
+            status: STATUS.fail
+          };
+        }
+
+        const result = await new Promise((resolve, reject) => {
+          user.comparePassword(password, (fault, isMatch) => {
+            if (fault) {
+              return reject(new Error(fault));
+            }
+
+            if (!isMatch) {
+              return resolve({
+                message: 'Password does not match',
+                status: STATUS.fail
+              });
+            }
+
+            const token = jwt.sign({ email }, JWT.secretKey, {
+              expiresIn: JWT.expiresIn
             });
-          }
 
-          if (!isMatch) {
             return resolve({
-              message: 'Password doest not match'
+              result: {
+                token
+              },
+              status: STATUS.success
             });
-          }
-
-          const token = jwt.sign({ email }, JWT.secretKey, {
-            expiresIn: JWT.expiresIn
-          });
-
-          return resolve({
-            message: 'Success',
-            token
           });
         });
-      });
 
-      return result;
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          ...result
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: STATUS.error
+        };
+      }
     },
 
-    registerUser: (_, { data }) => {
-      const user = new User(data);
-      const result = user.save();
+    registerUser: async (_, { data }) => {
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return { result };
+      try {
+        const user = new User(data);
+        const result = await user.save();
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: STATUS.success
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: STATUS.error
+        };
+      }
     }
   }
 };
