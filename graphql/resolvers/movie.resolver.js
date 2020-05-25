@@ -1,6 +1,40 @@
 const { STATUS } = require('../../constants/config.const');
+const { FORMAT } = require('../../constants/date.const');
+const { SHOWING } = require('../../constants/movie.const');
 const { Movie } = require('../../models');
-const { getIsoDate } = require('../../utils/date.util');
+const { getIsoDate, transformDate } = require('../../utils/date.util');
+
+const getMoviesFilter = showing => {
+  let filter;
+  const currentDate = transformDate(new Date(), FORMAT.international);
+
+  switch (showing) {
+    case SHOWING.nowPlaying:
+      filter = {
+        start: {
+          $lte: currentDate
+        },
+        end: {
+          $gte: currentDate
+        }
+      };
+      break;
+
+    case SHOWING.upcoming:
+      filter = {
+        start: {
+          $gte: currentDate
+        }
+      };
+      break;
+
+    default:
+      filter = {};
+      break;
+  }
+
+  return filter;
+};
 
 const movieResolver = {
   Query: {
@@ -31,15 +65,16 @@ const movieResolver = {
       }
     },
 
-    movies: async (_, { skip, limit }) => {
+    movies: async (_, { skip, limit, showing }) => {
       let accessTimeOut = '';
       const accessTimeIn = getIsoDate();
+      const filter = getMoviesFilter(showing);
 
       try {
-        const results = await Movie.find({})
+        const results = await Movie.find(filter)
           .skip(skip)
           .limit(limit);
-        const total = await Movie.find({}).countDocuments();
+        const total = await Movie.find(filter).countDocuments();
 
         accessTimeOut = getIsoDate();
 
