@@ -2,8 +2,8 @@ const { gql } = require('apollo-server-express');
 
 const query = gql`
   type Query {
-    movie(id: ID!): Movie
-    movies(skip: Int!, limit: Int!): MovieResponse
+    movie(id: ID!): MovieResponse
+    movies(skip: Int!, limit: Int!): MoviesResponse
     theater(id: ID!): TheaterResponse
     theaters(skip: Int!, limit: Int!): TheatersResponse
   }

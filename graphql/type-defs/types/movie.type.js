@@ -36,17 +36,37 @@ const movieType = gql`
     writer: String
   }
 
-  type MovieResponse {
+  type MovieResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: Movie
+    status: String
+  }
+
+  type MoviesResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
     results: [Movie]
+    status: String
     total: Int
   }
 
-  type CreatedMovieResponse {
+  type CreatedMovieResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
     result: Movie
+    status: String
   }
 
-  type DeletedMovieResponse {
+  type DeletedMovieResponse implements Response {
+    access_time_in: String
+    access_time_out: String
     message: String
+    result: Movie
+    status: String
   }
 `;
 

@@ -1,39 +1,119 @@
 const { Movie } = require('../../models');
+const { getIsoDate } = require('../../utils/date.util');
 
 const movieResolver = {
   Query: {
     movie: async (_, { id }) => {
-      const result = await Movie.findById(id);
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return result;
+      try {
+        const result = await Movie.findById(id);
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     },
 
     movies: async (_, { skip, limit }) => {
-      const results = await Movie.find({})
-        .skip(skip)
-        .limit(limit);
-      const total = await Movie.find({}).countDocuments();
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return { results, total };
+      try {
+        const results = await Movie.find({})
+          .skip(skip)
+          .limit(limit);
+        const total = await Movie.find({}).countDocuments();
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          results,
+          status: 'success',
+          total
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     }
   },
 
   Mutation: {
-    createMovie: (_, { data }) => {
-      const movie = new Movie(data);
-      const result = movie.save();
+    createMovie: async (_, { data }) => {
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      return { result };
+      try {
+        const movie = new Movie(data);
+        const result = await movie.save();
+
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     },
 
     deleteMovie: async (_, { id }) => {
-      const deletedMovie = await Movie.findByIdAndDelete(id);
+      let accessTimeOut = '';
+      const accessTimeIn = getIsoDate();
 
-      if (!deletedMovie) return false;
+      try {
+        const result = await Movie.findByIdAndDelete(id);
 
-      return {
-        message: 'Movie has been deleted'
-      };
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: 'success'
+        };
+      } catch (error) {
+        accessTimeOut = getIsoDate();
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: 'error'
+        };
+      }
     }
   }
 };
