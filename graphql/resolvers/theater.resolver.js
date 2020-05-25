@@ -1,17 +1,18 @@
 const { STATUS } = require('../../constants/config.const');
+const { FORMAT } = require('../../constants/date.const');
 const { Theater } = require('../../models');
-const { getIsoDate } = require('../../utils/date.util');
+const { transformDate } = require('../../utils/date.util');
 
 const theaterResolver = {
   Query: {
     theater: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const result = await Theater.findById(id);
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -20,7 +21,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -33,7 +34,7 @@ const theaterResolver = {
 
     theaters: async (_, { skip, limit }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const results = await Theater.find({})
@@ -41,7 +42,7 @@ const theaterResolver = {
           .limit(limit);
         const total = await Theater.find({}).countDocuments();
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -51,7 +52,7 @@ const theaterResolver = {
           total
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -66,13 +67,13 @@ const theaterResolver = {
   Mutation: {
     createTheater: async (_, { data }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const theater = new Theater(data);
         const result = await theater.save();
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -81,7 +82,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -94,12 +95,12 @@ const theaterResolver = {
 
     deleteTheater: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const result = await Theater.findByIdAndDelete(id);
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -108,7 +109,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,

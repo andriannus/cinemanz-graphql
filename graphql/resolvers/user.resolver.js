@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken');
 
 const { JWT, STATUS } = require('../../constants/config.const');
+const { FORMAT } = require('../../constants/date.const');
 const { User } = require('../../models');
-const { getIsoDate } = require('../../utils/date.util');
+const { transformDate } = require('../../utils/date.util');
 
 const userResolver = {
   Mutation: {
     loginUser: async (_, { email, password }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const user = await User.findOne({ email }).exec();
 
         if (!user) {
-          accessTimeOut = getIsoDate();
+          accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
           return {
             access_time_in: accessTimeIn,
@@ -50,7 +51,7 @@ const userResolver = {
           });
         });
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -58,7 +59,7 @@ const userResolver = {
           ...result
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -71,13 +72,13 @@ const userResolver = {
 
     registerUser: async (_, { data }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const user = new User(data);
         const result = await user.save();
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -86,7 +87,7 @@ const userResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,

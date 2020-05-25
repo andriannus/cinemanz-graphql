@@ -8,7 +8,7 @@ const getSplittedDate = date => {
   return { day, month, year };
 };
 
-const getIsoDate = (date = new Date()) => {
+const getIsoDate = date => {
   return date.toISOString();
 };
 
@@ -42,4 +42,4 @@ const transformDate = (date, format) => {
   }
 };
 
-module.exports = { getIsoDate, transformDate };
+module.exports = { transformDate };

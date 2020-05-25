@@ -2,7 +2,7 @@ const { STATUS } = require('../../constants/config.const');
 const { FORMAT } = require('../../constants/date.const');
 const { SHOWING } = require('../../constants/movie.const');
 const { Movie } = require('../../models');
-const { getIsoDate, transformDate } = require('../../utils/date.util');
+const { transformDate } = require('../../utils/date.util');
 
 const getMoviesFilter = showing => {
   let filter;
@@ -40,12 +40,12 @@ const movieResolver = {
   Query: {
     movie: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const result = await Movie.findById(id);
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -54,7 +54,7 @@ const movieResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -67,7 +67,7 @@ const movieResolver = {
 
     movies: async (_, { skip, limit, showing }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
       const filter = getMoviesFilter(showing);
 
       try {
@@ -76,7 +76,7 @@ const movieResolver = {
           .limit(limit);
         const total = await Movie.find(filter).countDocuments();
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -86,7 +86,7 @@ const movieResolver = {
           total
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -101,13 +101,13 @@ const movieResolver = {
   Mutation: {
     createMovie: async (_, { data }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const movie = new Movie(data);
         const result = await movie.save();
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -127,12 +127,12 @@ const movieResolver = {
 
     deleteMovie: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = getIsoDate();
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
 
       try {
         const result = await Movie.findByIdAndDelete(id);
 
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
@@ -141,7 +141,7 @@ const movieResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = getIsoDate();
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
 
         return {
           access_time_in: accessTimeIn,
