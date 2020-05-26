@@ -43,9 +43,7 @@ const userResolver = {
             });
 
             return resolve({
-              result: {
-                token
-              },
+              result: { token },
               status: STATUS.success
             });
           });
