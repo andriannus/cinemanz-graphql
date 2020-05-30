@@ -3,7 +3,7 @@ const APP = {
 };
 
 const DATABASE = {
-  mongoUri: 'mongodb://127.0.0.1/cinemanz'
+  mongoUri: 'mongodb://admin:admin123@ds147534.mlab.com:47534/cinemanz'
 };
 
 const JWT = {
