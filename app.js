@@ -15,7 +15,7 @@ const schema = makeExecutableSchema({
   resolvers,
   resolverValidationOptions: { requireResolversForResolveType: false }
 });
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({ schema, introspection: true });
 
 mongoose.connect(
   DATABASE.mongoUri,
