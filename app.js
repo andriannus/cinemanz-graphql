@@ -41,7 +41,9 @@ app.use(
 
 server.applyMiddleware({ app });
 
-app.listen(APP.port, () => {
+const PORT = process.env.PORT || APP.port;
+
+app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Running server on port ${APP.port}`);
 });
