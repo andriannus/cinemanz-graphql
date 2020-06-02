@@ -99,9 +99,20 @@ const movieResolver = {
   },
 
   Mutation: {
-    createMovie: async (_, { data }) => {
+    createMovie: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
       const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      if (!isAuthenticated) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Unauthorized',
+          status: STATUS.fail
+        };
+      }
 
       try {
         const movie = new Movie(data);
@@ -125,9 +136,20 @@ const movieResolver = {
       }
     },
 
-    deleteMovie: async (_, { id }) => {
+    deleteMovie: async (_, { id }, { isAuthenticated }) => {
       let accessTimeOut = '';
       const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      if (!isAuthenticated) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Unauthorized',
+          status: STATUS.fail
+        };
+      }
 
       try {
         const result = await Movie.findByIdAndDelete(id);

@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const { APP, DATABASE } = require('./constants/config.const');
 const { typeDefs } = require('./graphql/type-defs');
 const { resolvers } = require('./graphql/resolvers');
+const { getUserAuthentication } = require('./middlewares/auth.middleware');
 
 const app = express();
 
@@ -16,6 +17,7 @@ const schema = makeExecutableSchema({
   resolverValidationOptions: { requireResolversForResolveType: false }
 });
 const server = new ApolloServer({
+  context: ({ req }) => getUserAuthentication(req),
   introspection: true,
   playground: true,
   schema

@@ -65,9 +65,20 @@ const theaterResolver = {
   },
 
   Mutation: {
-    createTheater: async (_, { data }) => {
+    createTheater: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
       const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      if (!isAuthenticated) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Unauthorized',
+          status: STATUS.fail
+        };
+      }
 
       try {
         const theater = new Theater(data);
@@ -93,9 +104,20 @@ const theaterResolver = {
       }
     },
 
-    deleteTheater: async (_, { id }) => {
+    deleteTheater: async (_, { id }, { isAuthenticated }) => {
       let accessTimeOut = '';
       const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      if (!isAuthenticated) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Unauthorized',
+          status: STATUS.fail
+        };
+      }
 
       try {
         const result = await Theater.findByIdAndDelete(id);
