@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 
-const { JWT } = require('../constants/config.const');
+const { JWT } = require('../constants/auth.const');
 
 const getUserAuthentication = req => {
-  const token = req.headers['cinemanz-token'];
+  const token = req.headers[JWT.tokenName];
 
   if (!token) {
     return {
