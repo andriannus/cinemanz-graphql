@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const { JWT, STATUS } = require('../../constants/config.const');
+const { JWT } = require('../../constants/auth.const');
+const { STATUS } = require('../../constants/config.const');
 const { FORMAT } = require('../../constants/date.const');
 const { User } = require('../../models');
 const { transformDate } = require('../../utils/date.util');
