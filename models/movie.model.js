@@ -2,18 +2,18 @@ const { model, Schema } = require('mongoose');
 
 const movieSchema = new Schema({
   title: String,
-  genre: [String],
+  genres: [String],
   minutes: Number,
   synopsis: String,
-  producer: [String],
+  producers: [String],
   production: String,
   director: String,
   writer: String,
-  cast: [String],
+  casts: [String],
   start: String,
   end: String,
   rate: Number,
-  theater: [String],
+  theaters: [String],
   poster: String
 });
 

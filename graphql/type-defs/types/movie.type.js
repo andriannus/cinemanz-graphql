@@ -2,18 +2,18 @@ const { gql } = require('apollo-server-express');
 
 const movieType = gql`
   input CreateMovieInput {
-    cast: [String]
+    casts: [String]
     director: String
     end: String
-    genre: [String]
+    genres: [String]
     minutes: Int
     poster: String
-    producer: [String]
+    producers: [String]
     production: String
     rate: Float
     start: String
     synopsis: String
-    theater: [String]
+    theaters: [String]
     title: String
     writer: String
   }
@@ -25,18 +25,18 @@ const movieType = gql`
 
   type Movie {
     _id: ID
-    cast: [String]
+    casts: [String]
     director: String
     end: String
-    genre: [String]
+    genres: [String]
     minutes: Int
     poster: String
-    producer: [String]
+    producers: [String]
     production: String
     rate: Float
     start: String
     synopsis: String
-    theater: [String]
+    theaters: [String]
     title: String
     writer: String
   }
