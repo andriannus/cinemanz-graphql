@@ -15,6 +15,7 @@ const query = gql`
     deleteTheater(id: ID!): DeletedTheaterResponse
     registerUser(data: RegisterUserInput): RegisterUserResponse
     loginUser(email: String!, password: String!): LoginUserResponse
+    checkTokenUser(token: String!): CheckTokenUserResponse
   }
 `;
 

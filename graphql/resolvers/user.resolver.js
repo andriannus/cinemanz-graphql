@@ -95,6 +95,33 @@ const userResolver = {
           status: STATUS.error
         };
       }
+    },
+
+    checkTokenUser: (_, { token }) => {
+      let accessTimeOut = '';
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      try {
+        const decodedToken = jwt.verify(token, JWT.secretKey);
+
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result: decodedToken,
+          status: STATUS.success
+        };
+      } catch (error) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: STATUS.error
+        };
+      }
     }
   }
 };

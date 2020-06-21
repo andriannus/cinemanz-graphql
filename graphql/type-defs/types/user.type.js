@@ -24,6 +24,12 @@ const userType = gql`
     token: String
   }
 
+  type UserDecodedToken {
+    email: String
+    iat: Int
+    exp: Int
+  }
+
   type RegisterUserResponse implements Response {
     access_time_in: String
     access_time_out: String
@@ -37,6 +43,14 @@ const userType = gql`
     access_time_out: String
     message: String
     result: UserToken
+    status: String
+  }
+
+  type CheckTokenUserResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: UserDecodedToken
     status: String
   }
 `;
