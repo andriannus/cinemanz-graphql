@@ -10,6 +10,7 @@ const query = gql`
 
   type Mutation {
     createMovie(data: CreateMovieInput): CreatedMovieResponse
+    updateMovie(data: UpdateMovieInput): UpdatedMovieResponse
     deleteMovie(id: ID!): DeletedMovieResponse
     createTheater(data: CreateTheaterInput): CreatedTheaterResponse
     updateTheater(data: UpdateTheaterInput): UpdatedTheaterResponse

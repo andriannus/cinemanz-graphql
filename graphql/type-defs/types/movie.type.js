@@ -18,6 +18,24 @@ const movieType = gql`
     writer: String
   }
 
+  input UpdateMovieInput {
+    _id: ID
+    casts: [String]
+    director: String
+    end: String
+    genres: [String]
+    minutes: Int
+    poster: String
+    producers: [String]
+    production: String
+    rate: Float
+    start: String
+    synopsis: String
+    theaters: [String]
+    title: String
+    writer: String
+  }
+
   enum ShowingMovie {
     NOW_PLAYING
     UPCOMING
@@ -59,6 +77,14 @@ const movieType = gql`
   }
 
   type CreatedMovieResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: Movie
+    status: String
+  }
+
+  type UpdatedMovieResponse implements Response {
     access_time_in: String
     access_time_out: String
     message: String
