@@ -104,6 +104,48 @@ const theaterResolver = {
       }
     },
 
+    updateTheater: async (_, { data }, { isAuthenticated }) => {
+      let accessTimeOut = '';
+      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+
+      if (!isAuthenticated) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Unauthorized',
+          status: STATUS.fail
+        };
+      }
+
+      try {
+        const { _id, ...updatedTheater } = data;
+
+        const result = Theater.findByIdAndUpdate(_id, updatedTheater, {
+          new: true
+        });
+
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          result,
+          status: STATUS.success
+        };
+      } catch (error) {
+        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: STATUS.error
+        };
+      }
+    },
+
     deleteTheater: async (_, { id }, { isAuthenticated }) => {
       let accessTimeOut = '';
       const accessTimeIn = transformDate(new Date(), FORMAT.iso);

@@ -7,6 +7,13 @@ const theaterType = gql`
     telephone: String
   }
 
+  input UpdateTheaterInput {
+    _id: ID
+    address: String
+    name: String
+    telephone: String
+  }
+
   type Theater {
     _id: ID
     address: String
@@ -32,6 +39,14 @@ const theaterType = gql`
   }
 
   type CreatedTheaterResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    result: Theater
+    status: String
+  }
+
+  type UpdatedTheaterResponse implements Response {
     access_time_in: String
     access_time_out: String
     message: String

@@ -12,6 +12,7 @@ const query = gql`
     createMovie(data: CreateMovieInput): CreatedMovieResponse
     deleteMovie(id: ID!): DeletedMovieResponse
     createTheater(data: CreateTheaterInput): CreatedTheaterResponse
+    updateTheater(data: UpdateTheaterInput): UpdatedTheaterResponse
     deleteTheater(id: ID!): DeletedTheaterResponse
     registerUser(data: RegisterUserInput): RegisterUserResponse
     loginUser(email: String!, password: String!): LoginUserResponse
