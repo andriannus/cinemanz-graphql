@@ -38,7 +38,7 @@ const getMoviesFilter = showing => {
 
 const movieResolver = {
   Query: {
-    movie: async (_, { id }) => {
+    async movie(_, { id }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -65,7 +65,7 @@ const movieResolver = {
       }
     },
 
-    movies: async (_, { skip, limit, showing }) => {
+    async movies(_, { skip, limit, showing }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
       const filter = getMoviesFilter(showing);
@@ -99,7 +99,7 @@ const movieResolver = {
   },
 
   Mutation: {
-    createMovie: async (_, { data }, { isAuthenticated }) => {
+    async createMovie(_, { data }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -136,7 +136,7 @@ const movieResolver = {
       }
     },
 
-    updateMovie: async (_, { data }, { isAuthenticated }) => {
+    async updateMovie(_, { data }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -178,7 +178,7 @@ const movieResolver = {
       }
     },
 
-    deleteMovie: async (_, { id }, { isAuthenticated }) => {
+    async deleteMovie(_, { id }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 

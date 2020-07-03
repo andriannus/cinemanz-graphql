@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+const { verify } = require('jsonwebtoken');
 
 const { JWT } = require('../constants/auth.const');
 
@@ -12,7 +12,7 @@ const getUserAuthentication = req => {
   }
 
   try {
-    const decodedToken = jwt.verify(token, JWT.secretKey);
+    const decodedToken = verify(token, JWT.secretKey);
 
     return {
       isAuthenticated: true,

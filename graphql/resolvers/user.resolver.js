@@ -1,5 +1,5 @@
 const { formatISO } = require('date-fns');
-const jwt = require('jsonwebtoken');
+const { sign, verify } = require('jsonwebtoken');
 
 const { JWT } = require('../../constants/auth.const');
 const { STATUS } = require('../../constants/config.const');
@@ -7,7 +7,7 @@ const { User } = require('../../models');
 
 const userResolver = {
   Mutation: {
-    loginUser: async (_, { email, password }) => {
+    async loginUser(_, { email, password }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -38,7 +38,7 @@ const userResolver = {
               });
             }
 
-            const token = jwt.sign({ email }, JWT.secretKey, {
+            const token = sign({ email }, JWT.secretKey, {
               expiresIn: JWT.expiresIn
             });
 
@@ -68,7 +68,7 @@ const userResolver = {
       }
     },
 
-    registerUser: async (_, { data }) => {
+    async registerUser(_, { data }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -96,12 +96,12 @@ const userResolver = {
       }
     },
 
-    checkTokenUser: (_, { token }) => {
+    checkTokenUser(_, { token }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
       try {
-        const decodedToken = jwt.verify(token, JWT.secretKey);
+        const decodedToken = verify(token, JWT.secretKey);
 
         accessTimeOut = formatISO(new Date());
 

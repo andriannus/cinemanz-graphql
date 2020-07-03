@@ -5,7 +5,7 @@ const { Theater } = require('../../models');
 
 const theaterResolver = {
   Query: {
-    theater: async (_, { id }) => {
+    async theater(_, { id }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -32,7 +32,7 @@ const theaterResolver = {
       }
     },
 
-    theaters: async (_, { skip, limit }) => {
+    async theaters(_, { skip, limit }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -65,7 +65,7 @@ const theaterResolver = {
   },
 
   Mutation: {
-    createTheater: async (_, { data }, { isAuthenticated }) => {
+    async createTheater(_, { data }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -104,7 +104,7 @@ const theaterResolver = {
       }
     },
 
-    updateTheater: async (_, { data }, { isAuthenticated }) => {
+    async updateTheater(_, { data }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
@@ -146,7 +146,7 @@ const theaterResolver = {
       }
     },
 
-    deleteTheater: async (_, { id }, { isAuthenticated }) => {
+    async deleteTheater(_, { id }, { isAuthenticated }) {
       let accessTimeOut = '';
       const accessTimeIn = formatISO(new Date());
 
