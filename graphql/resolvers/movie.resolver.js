@@ -1,12 +1,12 @@
+const { format, formatISO } = require('date-fns');
+
 const { STATUS } = require('../../constants/config.const');
-const { FORMAT } = require('../../constants/date.const');
 const { SHOWING } = require('../../constants/movie.const');
 const { Movie } = require('../../models');
-const { transformDate } = require('../../utils/date.util');
 
 const getMoviesFilter = showing => {
   let filter;
-  const currentDate = transformDate(new Date(), FORMAT.international);
+  const currentDate = format(new Date(), 'yyyy-MM-dd');
 
   switch (showing) {
     case SHOWING.nowPlaying:
@@ -40,12 +40,12 @@ const movieResolver = {
   Query: {
     movie: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const result = await Movie.findById(id);
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -54,7 +54,7 @@ const movieResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -67,7 +67,7 @@ const movieResolver = {
 
     movies: async (_, { skip, limit, showing }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
       const filter = getMoviesFilter(showing);
 
       try {
@@ -76,7 +76,7 @@ const movieResolver = {
           .limit(limit);
         const total = await Movie.find(filter).countDocuments();
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -86,7 +86,7 @@ const movieResolver = {
           total
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -101,10 +101,10 @@ const movieResolver = {
   Mutation: {
     createMovie: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -118,7 +118,7 @@ const movieResolver = {
         const movie = new Movie(data);
         const result = await movie.save();
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -138,10 +138,10 @@ const movieResolver = {
 
     updateMovie: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -158,7 +158,7 @@ const movieResolver = {
           new: true
         });
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -167,7 +167,7 @@ const movieResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -180,10 +180,10 @@ const movieResolver = {
 
     deleteMovie: async (_, { id }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -196,7 +196,7 @@ const movieResolver = {
       try {
         const result = await Movie.findByIdAndDelete(id);
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -205,7 +205,7 @@ const movieResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,

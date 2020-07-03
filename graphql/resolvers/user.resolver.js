@@ -1,22 +1,21 @@
+const { formatISO } = require('date-fns');
 const jwt = require('jsonwebtoken');
 
 const { JWT } = require('../../constants/auth.const');
 const { STATUS } = require('../../constants/config.const');
-const { FORMAT } = require('../../constants/date.const');
 const { User } = require('../../models');
-const { transformDate } = require('../../utils/date.util');
 
 const userResolver = {
   Mutation: {
     loginUser: async (_, { email, password }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const user = await User.findOne({ email }).exec();
 
         if (!user) {
-          accessTimeOut = transformDate(new Date(), FORMAT.iso);
+          accessTimeOut = formatISO(new Date());
 
           return {
             access_time_in: accessTimeIn,
@@ -50,7 +49,7 @@ const userResolver = {
           });
         });
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -58,7 +57,7 @@ const userResolver = {
           ...result
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -71,13 +70,13 @@ const userResolver = {
 
     registerUser: async (_, { data }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const user = new User(data);
         const result = await user.save();
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -86,7 +85,7 @@ const userResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -99,12 +98,12 @@ const userResolver = {
 
     checkTokenUser: (_, { token }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const decodedToken = jwt.verify(token, JWT.secretKey);
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -113,7 +112,7 @@ const userResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,

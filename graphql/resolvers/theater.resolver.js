@@ -1,18 +1,18 @@
+const { formatISO } = require('date-fns');
+
 const { STATUS } = require('../../constants/config.const');
-const { FORMAT } = require('../../constants/date.const');
 const { Theater } = require('../../models');
-const { transformDate } = require('../../utils/date.util');
 
 const theaterResolver = {
   Query: {
     theater: async (_, { id }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const result = await Theater.findById(id);
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -21,7 +21,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -34,7 +34,7 @@ const theaterResolver = {
 
     theaters: async (_, { skip, limit }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       try {
         const results = await Theater.find({})
@@ -42,7 +42,7 @@ const theaterResolver = {
           .limit(limit);
         const total = await Theater.find({}).countDocuments();
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -52,7 +52,7 @@ const theaterResolver = {
           total
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -67,10 +67,10 @@ const theaterResolver = {
   Mutation: {
     createTheater: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -84,7 +84,7 @@ const theaterResolver = {
         const theater = new Theater(data);
         const result = await theater.save();
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -93,7 +93,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -106,10 +106,10 @@ const theaterResolver = {
 
     updateTheater: async (_, { data }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -126,7 +126,7 @@ const theaterResolver = {
           new: true
         });
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -135,7 +135,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -148,10 +148,10 @@ const theaterResolver = {
 
     deleteTheater: async (_, { id }, { isAuthenticated }) => {
       let accessTimeOut = '';
-      const accessTimeIn = transformDate(new Date(), FORMAT.iso);
+      const accessTimeIn = formatISO(new Date());
 
       if (!isAuthenticated) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -164,7 +164,7 @@ const theaterResolver = {
       try {
         const result = await Theater.findByIdAndDelete(id);
 
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
@@ -173,7 +173,7 @@ const theaterResolver = {
           status: STATUS.success
         };
       } catch (error) {
-        accessTimeOut = transformDate(new Date(), FORMAT.iso);
+        accessTimeOut = formatISO(new Date());
 
         return {
           access_time_in: accessTimeIn,
