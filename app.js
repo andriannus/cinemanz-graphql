@@ -2,6 +2,7 @@ const { ApolloServer, makeExecutableSchema } = require('apollo-server-express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
+const depthLimit = require('graphql-depth-limit');
 const mongoose = require('mongoose');
 
 const { APP, DATABASE } = require('./constants/config.const');
@@ -16,11 +17,13 @@ const schema = makeExecutableSchema({
   resolvers,
   resolverValidationOptions: { requireResolversForResolveType: false }
 });
+
 const server = new ApolloServer({
   context: ({ req }) => getUserAuthentication(req),
   introspection: true,
   playground: true,
-  schema
+  schema,
+  validationRules: [depthLimit(10)]
 });
 
 mongoose.connect(
