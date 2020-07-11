@@ -53,6 +53,13 @@ const userType = gql`
     result: UserDecodedToken
     status: String
   }
+
+  type CheckUsernameUserResponse implements Response {
+    access_time_in: String
+    access_time_out: String
+    message: String
+    status: String
+  }
 `;
 
 module.exports = { userType };

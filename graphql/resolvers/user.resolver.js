@@ -121,6 +121,42 @@ const userResolver = {
           status: STATUS.error
         };
       }
+    },
+
+    async checkUsernameUser(_, { username }) {
+      let accessTimeOut = '';
+      const accessTimeIn = formatISO(new Date());
+
+      try {
+        const result = await User.findOne({ username }).exec();
+
+        accessTimeOut = formatISO(new Date());
+
+        if (result) {
+          return {
+            access_time_in: accessTimeIn,
+            access_time_out: accessTimeOut,
+            message: 'Username can be used',
+            status: STATUS.success
+          };
+        }
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: 'Username cannot be used',
+          status: STATUS.fail
+        };
+      } catch (error) {
+        accessTimeOut = formatISO(new Date());
+
+        return {
+          access_time_in: accessTimeIn,
+          access_time_out: accessTimeOut,
+          message: error,
+          status: STATUS.error
+        };
+      }
     }
   }
 };

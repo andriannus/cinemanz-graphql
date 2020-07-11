@@ -18,6 +18,7 @@ const query = gql`
     registerUser(data: RegisterUserInput): RegisterUserResponse
     loginUser(email: String!, password: String!): LoginUserResponse
     checkTokenUser(token: String!): CheckTokenUserResponse
+    checkUsernameUser(username: String!): CheckUsernameUserResponse
   }
 `;
 
